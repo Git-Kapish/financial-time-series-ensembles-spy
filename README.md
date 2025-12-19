@@ -2,6 +2,8 @@
 
 This project predicts SPY (S&P 500 ETF) next-day price direction using daily OHLCV data from Yahoo Finance, technical indicators, and ensemble machine learning models (Random Forest, XGBoost). We implement a complete pipeline from feature engineering to model training with proper time-series validation, evaluating both traditional ML metrics (Accuracy, ROC-AUC) and realistic trading performance metrics (Sharpe ratio, maximum drawdown) to assess real-world applicability of directional forecasting strategies.
 
+Developed by Kapish Yadav.
+
 ## Problem Formulation
 
 We work with adjusted close prices $P_t$ and compute simple daily returns:
@@ -123,6 +125,31 @@ Performance metrics on the **test set** (most recent 15% of data):
 - **Trade-off observed:** XGBoost achieves smallest drawdown (-7.02%) but lowest returns, indicating overly conservative predictions. Logistic regression balances returns and risk better than complex ensembles.
 
 - **Overfitting evident:** Complex models (RF, XGBoost) show strong training performance but fail to generalize, highlighting the challenge of learning genuine patterns vs. noise in financial time series.
+
+### Model performance (test set)
+
+| Model              | Accuracy | ROC-AUC | Precision | Recall |
+|--------------------|---------:|--------:|----------:|-------:|
+| Logistic Regression| 0.565    | 0.489   | 0.571     | 0.968  |
+| Random Forest      | 0.473    | 0.509   | 0.602     | 0.246  |
+| XGBoost            | 0.426    | 0.441   | 0.503     | 0.202  |
+| RF+XGB Ensemble    | 0.425    | 0.444   | 0.500     | 0.188  |
+
+
+### Trading metrics (long-only strategy on test set)
+
+| Strategy           | Cumulative Return | Sharpe | Max Drawdown |
+|--------------------|------------------:|-------:|-------------:|
+| Logistic Reg       |            0.4086 | 1.1116 |      -0.1970 |
+| Random Forest      |            0.1638 | 0.7399 |      -0.1466 |
+| XGBoost            |            0.1659 | 0.6935 |      -0.0702 |
+| Buy & Hold (SPY)   |            0.5295 | 1.2124 |      -0.1876 |
+
+
+### Key figures
+
+- [figures/price_and_returns.png](figures/price_and_returns.png) — price history and daily returns distribution (EDA)
+- [figures/equity_curves_test.png](figures/equity_curves_test.png) — equity curves for all strategies on the test set
 
 ## Project Structure
 
