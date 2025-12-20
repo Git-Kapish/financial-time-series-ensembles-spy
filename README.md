@@ -251,7 +251,3 @@ This project demonstrates a complete pipeline for financial time series forecast
 - Extend prediction horizon (weekly/monthly vs. daily)
 - Implement more sophisticated position sizing and risk management
 - Explore deep learning architectures (LSTMs, Transformers) for sequence modeling
-
-## License
-
-MIT
