@@ -34,7 +34,7 @@ All feature engineering and modeling use the Adjusted Close price to ensure hist
 
 ## Features
 
-Technical features are computed using `src.features.technical` module. Each feature captures different market dynamics:
+Technical features are computed using the `src.features.technical` module, which is called from the modeling notebook. Each feature captures different market dynamics:
 
 - **Lagged daily returns** (1, 2, 5, 10 days): Capture momentum and mean-reversion patterns; recent price movements often exhibit continuation or reversal tendencies.
 
@@ -167,10 +167,10 @@ Performance metrics on the **test set** (most recent 15% of data):
 │   ├── features/
 │   │   └── technical.py       # Technical indicator computation functions
 │   ├── models/
-│   │   ├── baseline.py        # Baseline model implementations
-│   │   └── ensemble.py        # Ensemble model utilities
+│   │   ├── baseline.py        # Baseline model pipeline + evaluation helpers (used in 02_features_and_models.ipynb)
+│   │   └── ensemble.py        # Random Forest / XGBoost tuning + ensemble helpers (used in 02_features_and_models.ipynb)
 │   └── eval/
-│       └── metrics.py         # Trading performance metrics
+│       └── metrics.py         # Trading performance metrics (Sharpe, max drawdown, equity curves)
 ├── figures/                    # Saved plots from analysis
 │   ├── price_and_returns.png
 │   └── equity_curves_test.png
@@ -209,9 +209,9 @@ jupyter notebook notebooks/02_features_and_models.ipynb
 ```
 
 The second notebook will:
-- Build technical features
-- Train and tune ensemble models with time-series cross-validation
-- Evaluate ML metrics and trading performance
+- Build technical features (via `src.features.technical`)
+- Train and tune ensemble models with time-series cross-validation (`src.models.baseline`, `src.models.ensemble`)
+- Evaluate ML and trading performance (`src.eval.metrics`)
 - Generate plots and save results to `figures/` and `results/`
 
 ## Key Plots and Artifacts
